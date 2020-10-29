@@ -1,0 +1,33 @@
+Cross-Site-Scripting
+
+director is set to safe which, contrary to its name, is unsafe as it tells the website to trust
+what is in director no matter what it is. As a result, a malicious user can set director to
+be some malicious javascript in the url and have that javascript execute when another user
+clicks on the altered url. Therfore, by running the malicious javascript, it is possible for
+a malicious user to perform a cross-site-scripting attack.
+
+CSRF
+
+CSRF_COOKIE_SAMESITE, which is an attribute within the settings for django, is currently set to
+lax. Therefore a malicious web page, like the attack.html web page made, can force a visiting user
+that is logged onto the gift card website to buy a gift card and send it someone else by posting
+the filled relevant fields to the gift page since the web page thinks that the logged in user is 
+the one filling out the fields and and submitting the form to send the giftcard.
+
+SQL injection
+
+The card_query is unsanitized since it does not parameterize the data which it takes in. As a result, a malicious user is able to alter the sql query to perform unintended behavior such as
+getting the salted password for a specific user by just adding some single quotes and using UNION
+so that the query is extended to include the malicious user's query to get another user's
+salted password.
+
+Other (weak password salt)
+
+The same salt is used for every password and therefore the security normally provided by salting is not offered here. The reason that all the salts are the same is that random.seed(SEED) is called
+each time in generate_salt prior to the part that actually makes the salt and random.seed(SEED) 
+is used to generate a sequence of pseudo-random numbers and this sequence would be the same 
+with the same SEED and the same random generator functions such as randint being called in the same order. Therefore, the sequence of random numbers is reset each time generate_salt 
+is called. As a result, hexlify(random.randint(0, 2**length-1).to_bytes(length, byteorder='big'))
+will always use the same random integer and therefore will always generate the same salt. Since
+the salt is always the same, a hacker would only need to determine one salt in order to remove
+the benefits of salting and break the passwords faster.
