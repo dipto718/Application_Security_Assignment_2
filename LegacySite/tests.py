@@ -3,6 +3,9 @@ from . import extras
 
 # Create your tests here.
 
+# these are the tests that show
+# that the attack no longer works
+
 # test that xxs is fixed
 class XXSTestCase(TestCase):
 	fixtures = ['testdata.json']
