@@ -22,16 +22,32 @@ class XXSTestCase(TestCase):
 		if bad_script in (response.content).decode():
 			print("xxs attack works in gift\n")
 		else:
-			print("xxs attack failed in giftgit add *\n")
+			print("xxs attack failed in gift\n")
 
 # test that csrf is fixed
 class CSRFTestCase(TestCase):
 	fixtures = ['testdata.json']
 	def setUp(self):
+		# makes sure that the user is logged in
+		# when the attacker try to make them
+		# buy a giftcard
 		self.client = Client()
+		response = self.client.post('/login', {'uname' : 'z', 'pword' : 'z'})
+		#print(response.status_code)
+		if response.status_code == 200:
+			print("user z logged in ")
+		# by default the test client disables any
+		# any CSRF checks in the setting for the
+		# website so this reenables them
+		self.client = Client(enforce_csrf_checks=True)
 		
 	def testCSRF(self):
-		print()
+		
+		response = self.client.post('/gift', {'username' : 'admin', 'amount' : 5000})
+		if response.status_code == 200:
+			print("and the csrf attack still works and sends a gift card to admin")
+		else:
+			print("and the csrf attack fails and does not sends a gift card to admin")
 
 # test that sqli is fixed
 class SQLITestCase(TestCase):
