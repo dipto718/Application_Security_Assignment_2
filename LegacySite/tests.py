@@ -56,7 +56,17 @@ class SQLITestCase(TestCase):
 		self.client = Client()
 	
 	def testSQLI(self):
-		print()
+		#with open('newcard.gftcrd') as card:
+		#	card_data = card.read()
+		card = open('newcard.gftcrd')
+		response = self.client.post('/use', {'card_data' : card, 'card_supplied' : 'True', 'card_fname' : 'card'})
+		admin_pword_hashed = "000000000000000000000000000078d2$18821d89de11ab18488fdc0a01f1ddf4d290e198b0f80cd4974fc031dc2615a3"
+		#print(response.status_code)
+		if admin_pword_hashed in response.content.decode():
+			print("can still get admin hashed password so sqli attack still works\n")
+		else:
+			print("can't get admin hashed password so sqli attack fails\n")
+		#print()
 
 # test that salts for passwords are different
 class SALTTestCase(TestCase):
