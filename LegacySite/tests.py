@@ -22,7 +22,7 @@ class XXSTestCase(TestCase):
 		if bad_script in (response.content).decode():
 			print("xxs attack works in gift\n")
 		else:
-			print("xxs attack failed in gift\n")
+			print("xxs attack failed in giftgit add *\n")
 
 # test that csrf is fixed
 class CSRFTestCase(TestCase):
