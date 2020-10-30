@@ -15,9 +15,14 @@ class XXSTestCase(TestCase):
 		response = self.client.get('/buy.html?director=''<script>alert("hello")</script>''')
 		#print(response.content)
 		if bad_script in (response.content).decode():
-			print("xxs attack works\n")
+			print("xxs attack works in buy\n")
 		else:
-			print("xxs attack failed\n")
+			print("xxs attack failed in buy\n")
+		response = self.client.get('/gift.html?director=''<script>alert("hello")</script>''')
+		if bad_script in (response.content).decode():
+			print("xxs attack works in gift\n")
+		else:
+			print("xxs attack failed in gift\n")
 
 # test that csrf is fixed
 class CSRFTestCase(TestCase):
