@@ -1,0 +1,24 @@
+The module used for encryption was django_cryptography from which encrypt() was used.
+The database was encrypted by encrypting the data, amount, and file path attributes of the
+Card. Each of these were encrypted by a different respective key to ensure greater security.
+These fields were chosen since other things such as the attributes of the products were either expected to be public knowledge or could not be encrypted without damaging the functionality
+of other parts of the website. The attributes data, amount, and file path were also the best
+to encrypt since without the data it is difficult to use a stolen card, without the amount
+it is not known which giftcard is the most valuable to steal, and without the filepath it
+is more difficult to determine where the cards to be stolen are even located. Thus, the
+encryption of these attributes ensured greater security. The keys used for encryption
+are also stored in a remote_keys.txt file which the user needs to have to do any encryption.
+In addition, the keys needs to be manually entered into the keys list in models.py in the order
+that they show up in the file. This is done to ensure greater security, though less accessibilty,
+since this prevents encyption if the remote_keys text file is missing and the keys haven't been
+manually entered into the respective keys list area of models.py. Though, the remote_keys.txt file
+should be locally on something like a flash drive and then moved here temporarily to enforce
+the security mechanism I mentioned, I have included the file in this commit along with filling
+out the respective keys for the encryption of the three attributes so as to demonstrate how
+everything should look and work during the time when the remote_keys.txt file is made 
+temporarily available. Under most conditions most users will never get access to the 
+remote_key.txt file nor be able to fill out the keys list, it is just in these testing
+circumstances that it is made possible. The remote keys can also be changed at anytime to ensure
+greater security. However, the new keys must be the same number of bits as the previous keys.
+Together all of these ascpects result in high security, though also a lower level of accessibility
+as well which is a common consequence of security.
