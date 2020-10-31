@@ -10,17 +10,15 @@ keys = ['','','','']
 
 try:
 	secret_keys = open('remote_keys.txt', 'r')
-
 	# if you have the remote_keys file then you
 	# uncomment the following lines and put the 
         # the keys as written here corresponding to
 	# their line position in the file
 
 	# otherwise the keys are commented out
-
-	#keys[0] = 
-	#keys[1] = 
-	#keys[2] = 
+	keys[0] = b'\x8b\xdfX-\xea\xb4u\x94L\t\x9f\xa2Rq\xa0D\x81\xfd\xa8\xd3\xf4R.O\xda\xe3\xbc\xe4\xd1Fh*'
+	keys[1] = b'\xce8W\x04\xb3A\x86\xe5+\x85F\xd2-8\xe3\xf2\xaa\x08x\xf4\x00\xfe\x9enC \x9d\xb1u\x8e\xae\xdb'
+	keys[2] = b'\x14R\xfak\xbf\xbe\x1b\x06\xd5>\x01\xd3\x91\x9d\x03\xf1\xcf\xc3\xd1a\x9e\xbb\x83\xac5q\x1b\xa7\xfa\x10\x99?'
 except IOError:
 	print("The remote keys are not here so encryption can't be done")
 	sys.exit()
